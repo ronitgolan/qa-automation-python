@@ -19,6 +19,7 @@ Python version of my [JavaScript Playwright automation project](https://github.c
 - Checkout fails when required customer info is missing
 
 All 10 scenarios target the [SauceDemo](https://www.saucedemo.com) demo e-commerce site.
+All 10 scenarios run across Chromium, Firefox, and WebKit — 30 total test runs.
 
 ## Tech stack
 
