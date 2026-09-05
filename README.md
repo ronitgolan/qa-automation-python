@@ -18,19 +18,36 @@ Python version of my [JavaScript Playwright automation project](https://github.c
 - Complete a full checkout flow end-to-end
 - Checkout fails when required customer info is missing
 
-All 10 scenarios target the [SauceDemo](https://www.saucedemo.com) demo e-commerce site, and run across Chromium, Firefox, and WebKit — 30 total test runs.
+All 10 UI scenarios target the [SauceDemo](https://www.saucedemo.com) demo e-commerce site.
+
+**API Tests (`test_api.py`)** — 7 scenarios against a public REST API ([reqres.in](https://reqres.in)):
+- GET a single user (200, correct data)
+- GET a nonexistent user (404)
+- GET a paginated user list
+- POST to create a user (201, echoes submitted data)
+- PUT to update a user (200, updated fields)
+- DELETE a user (204)
+- POST registration with missing required field (400, error message)
+
+## CI
+
+GitHub Actions runs two separate jobs on every push:
+- **`api-tests`** — runs the API suite once (no browser needed)
+- **`ui-tests`** — runs the UI suite across Chromium, Firefox, and WebKit
 
 ## Tech stack
 
 - [pytest](https://docs.pytest.org/)
-- [Playwright for Python](https://playwright.dev/python/)
+- [Playwright for Python](https://playwright.dev/python/) (UI tests)
+- [requests](https://requests.readthedocs.io/) (API tests)
 
 ## Running locally
 
 ```bash
-python -m pip install pytest playwright pytest-playwright
+python -m pip install pytest playwright pytest-playwright requests
 python -m playwright install
-python -m pytest --browser chromium
+python -m pytest --browser chromium --ignore=test_api.py
+python -m pytest test_api.py
 ```
 
 To watch the tests run in a real browser:
